@@ -11,23 +11,25 @@ benchmark_directory="/path/to/benchmark/directory"
 num_trials=5
 
 # CSV header
-echo "Trial,Coreutils Memory (KB),Uutils Memory (KB)" > memory_usage_results.csv
+echo "Trial,Coreutils RSS (KB),Coreutils VSZ (KB),Uutils RSS (KB),Uutils VSZ (KB)" > memory_comparison_results_script_2.csv
 
 for ((trial=1; trial<=$num_trials; trial++))
 do
-    # Run Coreutils ls and capture memory usage
-    coreutils_memory=$(ps -p $$ -o rss | tail -1)
+    # Run Coreutils ls and capture RSS and VSZ
+    coreutils_rss=$(ps -p $$ -o rss | tail -1)
+    coreutils_vsz=$(ps -p $$ -o vsz | tail -1)
     $coreutils_ls -l $benchmark_directory >/dev/null
 
     # Wait for a brief moment before capturing uutils memory usage
     sleep 1
 
-    # Run uutils ls and capture memory usage
-    uutils_memory=$(ps -p $$ -o rss | tail -1)
+    # Run uutils ls and capture RSS and VSZ
+    uutils_rss=$(ps -p $$ -o rss | tail -1)
+    uutils_vsz=$(ps -p $$ -o vsz | tail -1)
     $uutils_ls -l $benchmark_directory >/dev/null
 
     # Append results to CSV file
-    echo "$trial,$coreutils_memory,$uutils_memory" >> memory_usage_results.csv
+    echo "$trial,$coreutils_rss,$coreutils_vsz,$uutils_rss,$uutils_vsz" >> memory_comparison_results_script_2.csv
 done
 
-echo "Memory usage benchmarking completed. Results saved to memory_usage_results.csv"
+echo "Memory comparison completed. Results saved to memory_comparison_results_script_2.csv"
