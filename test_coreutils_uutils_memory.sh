@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # Specify the paths to GNU Coreutils and uutils versions of the ls command
-coreutils_ls="/path/to/gnu/ls"
-uutils_ls="/path/to/uutils/ls"
+coreutils_ls="/home/bittn/.cargo/bin/coreutils ls"
+uutils_ls="/usr/bin/ls"
 
 # Specify the directory you want to list
-benchmark_directory="/path/to/benchmark/directory"
+benchmark_directory="/etc/ca-certificates/extracted/cadir"
 
 # Specify the number of trials to run
-num_trials=5
+num_trials=50
 
 # CSV header
 echo "Trial,Coreutils RSS (KB),Coreutils VSZ (KB),Uutils RSS (KB),Uutils VSZ (KB)" > memory_comparison_results_script_2.csv
