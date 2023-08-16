@@ -2,9 +2,10 @@
 
 function record_memory_usage() {
     command=$1
-    output=$(eval $command)
+    eval $command &
     pid=$!
-    memory_usage=$(ps -o rss= -p $pid)
+    wait $pid
+    memory_usage=$(pmap -x $pid | tail -n 1 | awk '{print $3}')
     echo $memory_usage
 }
 
