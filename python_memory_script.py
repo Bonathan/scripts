@@ -1,27 +1,27 @@
 import subprocess
-import psutil
+import os
 
-def record_memory_usage(command):
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-    process.wait()
-
-    # Get memory usage of the process
-    pid = process.pid
-    memory_info = psutil.Process(pid).memory_info()
-
-    return memory_info.rss  # Resident Set Size (memory usage in bytes)
-
-def profile_memory_usage(command, label):
-    print(f"Profiling memory usage for '{label}'...")
-    memory_usage = record_memory_usage(command)
-    print(f"Memory Usage for '{label}': {memory_usage} bytes")
+def record_memory_usage(pid):
+    try:
+        process = subprocess.Popen(['pmap', '-x', str(pid)], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate()
+        memory_info = stdout.decode('utf-8').strip().split('\n')[-1].split()
+        return memory_info[2]
+    except Exception as e:
+        return str(e)
 
 def main():
     cargo_command = "$HOME/.cargo/bin/coreutils ls /etc/ca-certificates/extracted/cadir"
     usr_command = "/usr/bin/ls /etc/ca-certificates/extracted/cadir"
 
-    profile_memory_usage(cargo_command, "Cargo ls")
-    profile_memory_usage(usr_command, "Usr ls")
+    cargo_process = subprocess.Popen(cargo_command, shell=True)
+    usr_process = subprocess.Popen(usr_command, shell=True)
+
+    cargo_memory_usage = record_memory_usage(cargo_process.pid)
+    usr_memory_usage = record_memory_usage(usr_process.pid)
+
+    print(f"Memory Usage for '{cargo_command}': {cargo_memory_usage} KB")
+    print(f"Memory Usage for '{usr_command}': {usr_memory_usage} KB")
 
 if __name__ == "__main__":
     main()
