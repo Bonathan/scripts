@@ -12,14 +12,8 @@ def record_memory_usage(pid):
         return str(e)
 
 def main():
-    command_set_a = [
-        "ls /etc/ca-certificates/extracted/cadir",
-        "cat /etc/passwd",
-        "mkdir /tmp/test",
-        # Add more commands here...
-    ]
 
-    command_set_b = [
+    command_set = [
         "ls /etc/ca-certificates/extracted/cadir",
         "cat /etc/passwd",
         # "mkdir /tmp/test2",
@@ -35,7 +29,7 @@ def main():
 
         cargo_bin = os.path.expanduser("~/.cargo/bin/coreutils")
 
-        for command in command_set_a:
+        for command in command_set:
             cargo_command = f"{cargo_bin} {command}"
             usr_command = f"/usr/bin/{command}"
 
