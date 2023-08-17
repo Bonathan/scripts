@@ -20,8 +20,11 @@ def main():
     cargo_memory_usage = record_memory_usage(cargo_process.pid)
     usr_memory_usage = record_memory_usage(usr_process.pid)
 
-    print(f"Memory Usage for '{cargo_command}': {cargo_memory_usage} KB")
-    print(f"Memory Usage for '{usr_command}': {usr_memory_usage} KB")
+    with open('memory_usage_output.txt', 'w') as file:
+        file.write(f"Memory Usage for '{cargo_command}': {cargo_memory_usage} KB\n")
+        file.write(f"Memory Usage for '{usr_command}': {usr_memory_usage} KB\n")
+
+    print("Memory usage data written to memory_usage_output.txt")
 
 if __name__ == "__main__":
     main()
