@@ -22,7 +22,9 @@ def main():
     command_set_b = [
         "ls /etc/ca-certificates/extracted/cadir",
         "cat /etc/passwd",
-        "mkdir /tmp/test2",
+        # "mkdir /tmp/test2",
+        "head /home/bittn/scripts/python_memory_script.py",
+        "nl /home/bittn/scripts/python_memory_script.py",
         # Add more commands here...
     ]
 
@@ -34,8 +36,8 @@ def main():
         cargo_bin = os.path.expanduser("~/.cargo/bin/coreutils")
 
         for command in command_set_a:
-            cargo_command = f"{cargo_bin} {command_set_a[command]}"
-            usr_command = f"/usr/bin/{command_set_b[command]}"
+            cargo_command = f"{cargo_bin} {command}"
+            usr_command = f"/usr/bin/{}"
 
             cargo_process = subprocess.Popen(cargo_command, shell=True)
             usr_process = subprocess.Popen(usr_command, shell=True)
