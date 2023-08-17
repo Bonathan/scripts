@@ -1,5 +1,5 @@
 Command,Cargo Memory Usage (KB),Usr Memory Usage (KB)
-ls /etc/ca-certificates/extracted/cadir,7908,6196
-cat /etc/passwd,7776,6040
-head /home/bittn/scripts/python_memory_script.py,7908,180
-nl /home/bittn/scripts/python_memory_script.py,7908,5904
+ls /etc/ca-certificates/extracted/cadir,12468,6196
+cat /etc/passwd,8536,6040
+head /home/bittn/scripts/python_memory_script.py,12028,5908
+nl /home/bittn/scripts/python_memory_script.py,8568,5904
