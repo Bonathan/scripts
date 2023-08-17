@@ -7,7 +7,7 @@ def record_memory_usage(pid):
         process = subprocess.Popen(['pmap', '-x', str(pid)], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = process.communicate()
         memory_info = stdout.decode('utf-8').strip().split('\n')[-1].split()
-        return memory_info[2]
+        return memory_info[1]
     except Exception as e:
         return str(e)
 
