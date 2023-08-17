@@ -37,7 +37,7 @@ def main():
 
         for command in command_set_a:
             cargo_command = f"{cargo_bin} {command}"
-            usr_command = f"/usr/bin/{}"
+            usr_command = f"/usr/bin/{command}"
 
             cargo_process = subprocess.Popen(cargo_command, shell=True)
             usr_process = subprocess.Popen(usr_command, shell=True)
